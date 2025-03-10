@@ -22,14 +22,6 @@
         .delete-btn:hover { background: #c82333; }
         .clear-btn { background: #ffc107; width: 100%; }
         .clear-btn:hover { background: #e0a800; }
-        
-        @media (max-width: 600px) {
-            .container { width: 90%; padding: 15px; }
-            input, button { width: calc(100% - 20px); padding: 10px; font-size: 14px; }
-            table, th, td { font-size: 12px; }
-            th, td { padding: 8px; }
-            .task-btn { padding: 6px 10px; font-size: 12px; }
-        }
     </style>
 </head>
 <body>
@@ -41,7 +33,7 @@
         <input type="text" id="assignee" placeholder="Assigned By">
         <input type="text" id="assignTo" placeholder="Assign To">
         <button onclick="addTask()">Add Task</button>
-        <button class="clear-btn" onclick="clearTasks()">Clear All Tasks</button>
+        <button class="clear-btn" onclick="confirmClearTasks()">Clear All Tasks</button>
         
         <div class="table-container">
             <table>
@@ -103,6 +95,12 @@
             tasks = tasks.filter(t => t.id !== id);
             localStorage.setItem("tasks", JSON.stringify(tasks));
             loadTasks();
+        }
+
+        function confirmClearTasks() {
+            if (confirm("Are you sure you want to clear all tasks?")) {
+                clearTasks();
+            }
         }
 
         function clearTasks() {
